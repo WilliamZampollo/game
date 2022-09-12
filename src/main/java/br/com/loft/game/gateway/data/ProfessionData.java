@@ -1,14 +1,13 @@
 package br.com.loft.game.gateway.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -45,4 +44,7 @@ public class ProfessionData {
 
     @Column(name = "velocity_description")
     public String velocityDescription;
+
+    @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PersonageData> personages;
 }

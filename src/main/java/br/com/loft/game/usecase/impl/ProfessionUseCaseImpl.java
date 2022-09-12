@@ -18,4 +18,8 @@ public class ProfessionUseCaseImpl implements ProfessionUseCase {
     public List<Profession> getProfessions() {
         return professionGateway.getProfessions();
     }
+    @Override
+    public Profession findById(Integer id) {
+        return professionGateway.findById(id);
+    }
 }

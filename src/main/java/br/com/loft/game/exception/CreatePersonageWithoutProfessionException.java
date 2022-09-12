@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfessionNotFoundException extends RuntimeException {
+public class CreatePersonageWithoutProfessionException extends RuntimeException{
     private String message;
 }

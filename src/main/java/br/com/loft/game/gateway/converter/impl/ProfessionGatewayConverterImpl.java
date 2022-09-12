@@ -14,19 +14,40 @@ public class ProfessionGatewayConverterImpl implements ProfessionGatewayConverte
     @Override
     public List<Profession> converterToProfessionList(List<ProfessionData> professions) {
         List<Profession> convertedList = new ArrayList<>();
-        professions.forEach(p -> convertedList.add(
-                Profession.builder()
-                        .id(p.getId().intValue())
-                        .name(p.getName())
-                        .lifePoints(p.getLifePoints())
-                        .power(p.getPower())
-                        .skill(p.getSkill())
-                        .intelligence(p.getIntelligence())
-                        .attack(p.getAttack())
-                        .attackDescription(p.getAttackDescription())
-                        .velocity(p.getVelocity())
-                        .velocityDescription(p.getVelocityDescription())
-                        .build()));
+        professions.forEach(p -> convertedList.add(converterToProfession(p)));
+
         return convertedList;
+    }
+
+    @Override
+    public ProfessionData convertToDataObject(Profession profession) {
+        return ProfessionData.builder()
+                .id(profession.getId().longValue())
+                .name(profession.getName())
+                .lifePoints(profession.getLifePoints())
+                .power(profession.getPower())
+                .skill(profession.getSkill())
+                .intelligence(profession.getIntelligence())
+                .attack(profession.getAttack())
+                .attackDescription(profession.getAttackDescription())
+                .velocity(profession.getVelocity())
+                .velocityDescription(profession.getVelocityDescription())
+                .build();
+    }
+
+    @Override
+    public Profession converterToProfession(ProfessionData profession) {
+        return Profession.builder()
+                .id(profession.getId().intValue())
+                .name(profession.getName())
+                .lifePoints(profession.getLifePoints())
+                .power(profession.getPower())
+                .skill(profession.getSkill())
+                .intelligence(profession.getIntelligence())
+                .attack(profession.getAttack())
+                .attackDescription(profession.getAttackDescription())
+                .velocity(profession.getVelocity())
+                .velocityDescription(profession.getVelocityDescription())
+                .build();
     }
 }
