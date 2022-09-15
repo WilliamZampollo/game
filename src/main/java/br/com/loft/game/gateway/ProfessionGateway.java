@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ProfessionGateway {
     List<Profession> getProfessions();
+    Boolean existsById(Integer id);
+
+    Profession findById(Integer id);
 }

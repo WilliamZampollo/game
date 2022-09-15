@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,5 +27,21 @@ public class ProfessionGatewayImpl implements ProfessionGateway {
         }
 
         return converter.converterToProfessionList(professions);
+    }
+
+    @Override
+    public Boolean existsById(Integer id) {
+        return professionRepository.existsById(id.longValue());
+    }
+
+    @Override
+    public Profession findById(Integer id) {
+        Optional<ProfessionData> profession = professionRepository.findById(id.longValue());
+
+        if(profession.isEmpty()){
+            throw new ProfessionNotFoundException("Nenhuma profissão encontrada.");
+        }
+
+        return converter.converterToProfession(profession.get());
     }
 }

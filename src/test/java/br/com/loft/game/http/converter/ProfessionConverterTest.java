@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class ProfessionResponseConverterTest {
+public class ProfessionConverterTest {
     @Autowired
     private ProfessionConverter converter;
 

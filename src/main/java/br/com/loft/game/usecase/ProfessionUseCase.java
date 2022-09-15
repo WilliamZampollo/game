@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ProfessionUseCase {
     List<Profession> getProfessions();
+    Profession findById(Integer id);
 }
