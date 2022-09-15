@@ -12,9 +12,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static br.com.loft.game.mock.ProfessionMock.getProfession;
+import static br.com.loft.game.mock.ProfessionMock.getProfessionData;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -30,8 +32,8 @@ public class ProfessionGatewayTest {
 
     @Test
     public void getProfessions(){
-        Profession profession = new Profession(1,"Manager", 10, 11, 12, 13, 14, "Attack", 16, "Velocity");
-        ProfessionData professionData = new ProfessionData(1L,"Manager", 10, 11, 12, 13, 14, "Attack", 16, "Velocity");
+        Profession profession = getProfession();
+        ProfessionData professionData = getProfessionData();
 
         when(professionRepository.findAll()).thenReturn(List.of(professionData));
         when(converter.converterToProfessionList(any())).thenReturn(List.of(profession));
@@ -47,4 +49,36 @@ public class ProfessionGatewayTest {
         when(professionRepository.findAll()).thenReturn(new ArrayList<>());
         assertThrows(ProfessionNotFoundException.class, () -> gateway.getProfessions(), "Nenhuma profissão encontrada.");
     }
+
+    @Test
+    public void existsById() {
+        when(professionRepository.existsById(any())).thenReturn(true);
+        boolean exists = gateway.existsById(1);
+        assertTrue(exists);
+    }
+
+    @Test
+    public void notExistsById() {
+        when(professionRepository.existsById(any())).thenReturn(false);
+        boolean exists = gateway.existsById(1);
+        assertFalse(exists);
+    }
+
+    @Test
+    public void findById() {
+        when(professionRepository.findById(any())).thenReturn(Optional.of(getProfessionData()));
+        when(converter.converterToProfession(any())).thenReturn(getProfession());
+
+        Profession profession = gateway.findById(1);
+
+        assertEquals("Manager", profession.getName());
+        assertEquals(14, profession.getAttack());
+    }
+
+    @Test
+    public void findByIdWithEmptyProfession() {
+        when(professionRepository.findById(any())).thenReturn(Optional.empty());
+        assertThrows(ProfessionNotFoundException.class, () -> gateway.findById(1), "Nenhuma profissão encontrada.");
+    }
+
 }

@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static br.com.loft.game.mock.ProfessionMock.getProfession;
+import static br.com.loft.game.mock.ProfessionMock.getProfessionData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -16,11 +18,20 @@ public class ProfessionGatewayConverterTest {
     private ProfessionGatewayConverter converter;
 
     @Test
-    public void converter(){
-        ProfessionData profession = new ProfessionData(1L,"Manager", 10, 11, 12, 13, 14, "Attack", 16, "Velocity");
+    public void converterToList(){
+        ProfessionData profession = getProfessionData();
         List<Profession> professionList = converter.converterToProfessionList(List.of(profession));
 
         assertEquals(profession.getLifePoints(), professionList.get(0).getLifePoints());
         assertEquals(profession.getName(), professionList.get(0).getName());
+    }
+
+    @Test
+    public void converter(){
+        Profession profession = getProfession();
+        ProfessionData professionData= converter.convertToDataObject(profession);
+
+        assertEquals(profession.getLifePoints(), professionData.getLifePoints());
+        assertEquals(profession.getName(), professionData.getName());
     }
 }

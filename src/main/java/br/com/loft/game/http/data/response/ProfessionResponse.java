@@ -5,7 +5,6 @@ import lombok.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProfessionResponse {
     private Integer id;
     public String name;

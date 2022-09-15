@@ -9,6 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
+import static br.com.loft.game.mock.ProfessionMock.getProfessionData;
 import static java.util.Optional.empty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +22,7 @@ public class ProfessionRepositoryTest {
 
     @Test
     public void insertProfession(){
-        ProfessionData profession = new ProfessionData(1L,"Manager", 10, 11, 12, 13, 14, "Attack", 16, "Velocity");
+        ProfessionData profession = getProfessionData();
         repository.save(profession);
         Integer countProfessions = repository.findAll().size();
         assertEquals(1, countProfessions);
@@ -29,7 +30,7 @@ public class ProfessionRepositoryTest {
 
     @Test
     public void checkProfessionSavedWithIdPassingOtherIdShouldReturnNull() {
-        ProfessionData profession = new ProfessionData(1L,"Manager", 10, 11, 12, 13, 14, "Attack", 16, "Velocity");
+        ProfessionData profession = getProfessionData();
         repository.save(profession);
         Integer countProfessions = repository.findAll().size();
         assertEquals(1, countProfessions);

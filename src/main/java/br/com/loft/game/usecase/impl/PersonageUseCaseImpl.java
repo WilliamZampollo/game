@@ -26,6 +26,5 @@ public class PersonageUseCaseImpl implements PersonageUseCase {
         }catch (ProfessionNotFoundException e){
             throw new CreatePersonageWithoutProfessionException("Erro ao criar personagem, profissão informada não existente.");
         }
-
     }
 }

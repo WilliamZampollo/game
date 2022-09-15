@@ -1,22 +1,21 @@
 package br.com.loft.game.entity;
 
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Personage {
     private Integer id;
     private Integer professionId;
     private String name;
-    public Integer lifePoints;
-    public Integer power;
-    public Integer skill;
-    public Integer intelligence;
-    public Integer attack;
-    public String attackDescription;
-    public Integer velocity;
-    public String velocityDescription;
+    private Integer lifePoints;
+    private Integer power;
+    private Integer skill;
+    private Integer intelligence;
+    private Integer attack;
+    private String attackDescription;
+    private Integer velocity;
+    private String velocityDescription;
 }
