@@ -4,6 +4,7 @@ import br.com.loft.game.entity.Personage;
 import br.com.loft.game.gateway.data.PersonageData;
 import br.com.loft.game.http.data.request.PersonageRequest;
 
+import static br.com.loft.game.mock.ProfessionMock.getProfession;
 import static br.com.loft.game.mock.ProfessionMock.getProfessionData;
 
 public class PersonageMock {
@@ -25,6 +26,6 @@ public class PersonageMock {
     }
 
     public static Personage getPersonage(){
-        return new Personage(1, 1, "Juninho",10, 11, 12, 13, 14, "Attack", 16, "Velocity");
+        return new Personage(1, "Juninho",getProfession());
     }
 }

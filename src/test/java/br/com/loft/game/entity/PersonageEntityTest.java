@@ -12,15 +12,15 @@ public class PersonageEntityTest {
         Personage personage = getPersonage();
 
         assertEquals(1, personage.getId());
-        assertEquals(1, personage.getProfessionId());
         assertEquals("Juninho", personage.getName());
-        assertEquals(10, personage.getLifePoints());
-        assertEquals(11, personage.getPower());
-        assertEquals(12, personage.getSkill());
-        assertEquals(13, personage.getIntelligence());
-        assertEquals(14, personage.getAttack());
-        assertEquals("Attack", personage.getAttackDescription());
-        assertEquals(16, personage.getVelocity());
-        assertEquals("Velocity", personage.getVelocityDescription());
+        assertEquals(1, personage.getProfession().getId());
+        assertEquals(10, personage.getProfession().getLifePoints());
+        assertEquals(11, personage.getProfession().getPower());
+        assertEquals(12, personage.getProfession().getSkill());
+        assertEquals(13, personage.getProfession().getIntelligence());
+        assertEquals(14, personage.getProfession().getAttack());
+        assertEquals("Attack", personage.getProfession().getAttackDescription());
+        assertEquals(16, personage.getProfession().getVelocity());
+        assertEquals("Velocity", personage.getProfession().getVelocityDescription());
     }
 }
