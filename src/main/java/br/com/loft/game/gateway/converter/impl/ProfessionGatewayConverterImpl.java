@@ -22,7 +22,7 @@ public class ProfessionGatewayConverterImpl implements ProfessionGatewayConverte
     @Override
     public ProfessionData convertToDataObject(Profession profession) {
         return ProfessionData.builder()
-                .id(profession.getId().longValue())
+                .id(profession.getId())
                 .name(profession.getName())
                 .lifePoints(profession.getLifePoints())
                 .power(profession.getPower())
@@ -38,7 +38,7 @@ public class ProfessionGatewayConverterImpl implements ProfessionGatewayConverte
     @Override
     public Profession converterToProfession(ProfessionData profession) {
         return Profession.builder()
-                .id(profession.getId().intValue())
+                .id((int) profession.getId())
                 .name(profession.getName())
                 .lifePoints(profession.getLifePoints())
                 .power(profession.getPower())

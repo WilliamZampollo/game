@@ -1,5 +1,6 @@
 package br.com.loft.game.usecase.impl;
 
+import br.com.loft.game.entity.Personage;
 import br.com.loft.game.entity.Profession;
 import br.com.loft.game.exception.CreatePersonageWithoutProfessionException;
 import br.com.loft.game.exception.ProfessionNotFoundException;
@@ -8,6 +9,8 @@ import br.com.loft.game.usecase.PersonageUseCase;
 import br.com.loft.game.usecase.ProfessionUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -20,11 +23,14 @@ public class PersonageUseCaseImpl implements PersonageUseCase {
     public void createPersonage(String name, Integer professionId) {
         try {
             Profession profession = professionUseCase.findById(professionId);
-
-            personageGateway.createPersonage(name, profession);
-
+            personageGateway.createPersonage(name, true, profession);
         }catch (ProfessionNotFoundException e){
             throw new CreatePersonageWithoutProfessionException("Erro ao criar personagem, profissão informada não existente.");
         }
+    }
+
+    @Override
+    public List<Personage> getPersonages() {
+        return personageGateway.findAllPersonages();
     }
 }

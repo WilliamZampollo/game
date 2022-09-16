@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static br.com.loft.game.mock.PersonageMock.getPersonage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PersonageEntityTest {
 
@@ -13,6 +14,7 @@ public class PersonageEntityTest {
 
         assertEquals(1, personage.getId());
         assertEquals("Juninho", personage.getName());
+        assertTrue(personage.isAlive());
         assertEquals(1, personage.getProfession().getId());
         assertEquals(10, personage.getProfession().getLifePoints());
         assertEquals(11, personage.getProfession().getPower());

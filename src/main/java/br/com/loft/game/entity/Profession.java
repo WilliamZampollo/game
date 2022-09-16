@@ -1,19 +1,21 @@
 package br.com.loft.game.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 @Getter
 @Builder
 @AllArgsConstructor
 public class Profession {
-    private Integer id;
+    private int id;
     private String name;
-    private Integer lifePoints;
-    private Integer power;
-    private Integer skill;
-    private Integer intelligence;
-    private Integer attack;
+    private int lifePoints;
+    private int power;
+    private int skill;
+    private int intelligence;
+    private int attack;
     private String attackDescription;
-    private Integer velocity;
+    private int velocity;
     private String velocityDescription;
 }

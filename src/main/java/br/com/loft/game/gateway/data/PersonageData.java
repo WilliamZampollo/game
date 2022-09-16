@@ -14,12 +14,15 @@ public class PersonageData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @Column(name = "name")
     public String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Column(name = "alive")
+    public boolean alive;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "profession_id", nullable = false)
     private ProfessionData profession;
 

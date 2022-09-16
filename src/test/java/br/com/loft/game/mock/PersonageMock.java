@@ -3,6 +3,7 @@ package br.com.loft.game.mock;
 import br.com.loft.game.entity.Personage;
 import br.com.loft.game.gateway.data.PersonageData;
 import br.com.loft.game.http.data.request.PersonageRequest;
+import br.com.loft.game.http.data.response.SimplePersonageResponse;
 
 import static br.com.loft.game.mock.ProfessionMock.getProfession;
 import static br.com.loft.game.mock.ProfessionMock.getProfessionData;
@@ -13,6 +14,7 @@ public class PersonageMock {
         return PersonageData.builder()
                             .id(1L)
                             .name("TestePerson")
+                            .alive(true)
                             .profession(getProfessionData())
                             .build();
     }
@@ -26,6 +28,10 @@ public class PersonageMock {
     }
 
     public static Personage getPersonage(){
-        return new Personage(1, "Juninho",getProfession());
+        return new Personage(1, "Juninho", true, getProfession());
+    }
+
+    public static SimplePersonageResponse getSimplePersonageResponse(){
+        return new SimplePersonageResponse(1,"Rubens", "Pedreiro", true);
     }
 }

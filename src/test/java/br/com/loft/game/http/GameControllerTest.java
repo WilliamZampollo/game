@@ -1,10 +1,14 @@
 package br.com.loft.game.http;
 
+import br.com.loft.game.entity.Personage;
 import br.com.loft.game.entity.Profession;
 import br.com.loft.game.exception.CreatePersonageWithoutProfessionException;
+import br.com.loft.game.exception.PeronageNotFoundException;
 import br.com.loft.game.exception.ProfessionNotFoundException;
+import br.com.loft.game.http.converter.PersonageConverter;
 import br.com.loft.game.http.converter.ProfessionConverter;
 import br.com.loft.game.http.data.response.ProfessionResponse;
+import br.com.loft.game.http.data.response.SimplePersonageResponse;
 import br.com.loft.game.usecase.PersonageUseCase;
 import br.com.loft.game.usecase.ProfessionUseCase;
 import org.junit.jupiter.api.Test;
@@ -18,6 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static br.com.loft.game.mock.PersonageMock.getPersonage;
+import static br.com.loft.game.mock.PersonageMock.getSimplePersonageResponse;
 import static br.com.loft.game.mock.ProfessionMock.getProfession;
 import static br.com.loft.game.mock.ProfessionMock.getProfessionResponse;
 import static org.hamcrest.Matchers.containsString;
@@ -41,6 +47,9 @@ public class GameControllerTest {
 
     @MockBean
     private PersonageUseCase personageUseCase;
+
+    @MockBean
+    private PersonageConverter personageConverter;
 
     @Test
     public void findAllProfessions() throws Exception {
@@ -100,4 +109,26 @@ public class GameControllerTest {
                 .andExpect(status().isPreconditionFailed());
     }
 
+    @Test
+    public void findAllPersonages() throws Exception {
+        List<Personage> personages = List.of(getPersonage());
+        List<SimplePersonageResponse> simpleList = List.of(getSimplePersonageResponse());
+
+        when(personageUseCase.getPersonages()).thenReturn(personages);
+        when(personageConverter.convertToListOfSimplePersonageResponse(any())).thenReturn(simpleList);
+
+        this.mockMvc.perform(get("/game/personage"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Rubens")))
+                .andExpect(content().string(containsString("Pedreiro")));
+    }
+
+    @Test
+    public void notFoundPersonages() throws Exception {
+        when(personageUseCase.getPersonages()).thenThrow(new PeronageNotFoundException("Nenhum personagem encontrado."));
+
+        this.mockMvc.perform(get("/game/personage"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(containsString("Nenhum personagem encontrado.")));
+    }
 }
